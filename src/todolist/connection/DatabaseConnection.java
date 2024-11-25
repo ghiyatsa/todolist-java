@@ -10,7 +10,7 @@ public class DatabaseConnection {
 
     private static DatabaseConnection instance;
     private BasicDataSource dataSource;
-    private final String host = "localhost";
+    private final String host = "127.0.0.1";
     private final String port = "3306";
     private final String database = "todolist";
     private final String username = "root";

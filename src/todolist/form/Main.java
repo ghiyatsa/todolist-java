@@ -4,7 +4,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Font;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -65,21 +65,20 @@ public class Main extends javax.swing.JFrame {
                 + "background:$Table.background;");
 
         lbTitle.putClientProperty(FlatClientProperties.STYLE, ""
-                + "font:bold +5;");
+                + "font:bold +10;");
 
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search...");
-        txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("todolist/icon/search.svg", 0.8f));
+        txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("todolist/icon/search.svg", 0.9f));
         txtSearch.putClientProperty(FlatClientProperties.STYLE, ""
                 + "arc:15;"
                 + "borderWidth:0;"
                 + "focusWidth:0;"
                 + "innerFocusWidth:0;"
-                + "margin:5,20,5,20;"
-                + "background:$Panel.background");
+                + "margin:8,20,8,20;"
+                + "background:$Panel.background;");
 
         table.getColumnModel().getColumn(0).setHeaderRenderer(new CheckBoxTableHeaderRenderer(table, 0));
         table.getTableHeader().setDefaultRenderer(new TableHeaderAlignment(table));
-//        table.getColumnModel().getColumn(2).setCellRenderer(new ProfileTableRenderer(table));
 
         // init default modal
         ModalDialog.getDefaultOption()
@@ -172,18 +171,19 @@ public class Main extends javax.swing.JFrame {
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setMaxWidth(50);
             table.getColumnModel().getColumn(1).setMaxWidth(40);
-            table.getColumnModel().getColumn(3).setPreferredWidth(300);
-            table.getColumnModel().getColumn(4).setPreferredWidth(450);
+            table.getColumnModel().getColumn(3).setPreferredWidth(250);
+            table.getColumnModel().getColumn(4).setPreferredWidth(500);
             table.getColumnModel().getColumn(5).setPreferredWidth(60);
         }
 
+        txtSearch.setMargin(new java.awt.Insets(2, 8, 2, 8));
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
             }
         });
 
-        lbTitle.setText("To Do List");
+        lbTitle.setText("TO DO LIST");
 
         cmdDelete.setText("Delete");
         cmdDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -229,19 +229,19 @@ public class Main extends javax.swing.JFrame {
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(20, 20, 20)
                 .addComponent(lbTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmdDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmdEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmdNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -249,14 +249,14 @@ public class Main extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(40, 40, 40)
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(38, 38, 38))
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(40, 40, 40)
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(40, 40, 40))
         );
@@ -273,12 +273,12 @@ public class Main extends javax.swing.JFrame {
             new SimpleModalBorder.Option("Cancel", SimpleModalBorder.CANCEL_OPTION),
             new SimpleModalBorder.Option("Save", SimpleModalBorder.OK_OPTION)
         };
-        ModalDialog.showModal(this, new SimpleModalBorder(create, "Create Employee", options, (mc, i) -> {
+        ModalDialog.showModal(this, new SimpleModalBorder(create, "Create Task", options, (mc, i) -> {
             if (i == SimpleModalBorder.OK_OPTION) {
                 // save
                 try {
                     service.create(create.getData());
-                    Toast.show(this, Toast.Type.SUCCESS, "Employee has been created");
+                    Toast.show(this, Toast.Type.SUCCESS, "Task has been created");
                     loadData();
                 } catch (IOException | SQLException e) {
                 }
@@ -303,14 +303,14 @@ public class Main extends javax.swing.JFrame {
                     new SimpleModalBorder.Option("Cancel", SimpleModalBorder.CANCEL_OPTION),
                     new SimpleModalBorder.Option("Update", SimpleModalBorder.OK_OPTION)
                 };
-                ModalDialog.showModal(this, new SimpleModalBorder(create, "Edit Employee [" + data.getTask() + "]", options, (mc, i) -> {
+                ModalDialog.showModal(this, new SimpleModalBorder(create, "Edit Task", options, (mc, i) -> {
                     if (i == SimpleModalBorder.OK_OPTION) {
                         // edit
                         try {
                             ModelTasks dataEdit = create.getData();
                             dataEdit.setTaskId(data.getTaskId());
                             service.edit(dataEdit);
-                            Toast.show(this, Toast.Type.SUCCESS, "Tasks has been updated");
+                            Toast.show(this, Toast.Type.SUCCESS, "Task has been updated");
                             loadData();
                         } catch (IOException | SQLException e) {
                         }
@@ -343,14 +343,14 @@ public class Main extends javax.swing.JFrame {
                         for (ModelTasks d : list) {
                             service.delete(d.getTaskId());
                         }
-                        Toast.show(this, Toast.Type.SUCCESS, "Employee has been deleted");
+                        Toast.show(this, Toast.Type.SUCCESS, "Task has been deleted");
                     } catch (SQLException e) {
                     }
                     loadData();
                 }
             }));
         } else {
-            Toast.show(this, Toast.Type.WARNING, "Please select employee to delete");
+            Toast.show(this, Toast.Type.WARNING, "Please select task to delete");
         }
     }//GEN-LAST:event_cmdDeleteActionPerformed
 
@@ -369,7 +369,7 @@ public class Main extends javax.swing.JFrame {
         FlatRobotoFont.install();
         FlatLaf.registerCustomDefaultsSource("task.themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-        FlatMacDarkLaf.setup();
+        FlatMacLightLaf.setup();
 
         java.awt.EventQueue.invokeLater(() -> new Main().setVisible(true));
     }
