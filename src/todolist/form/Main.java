@@ -80,7 +80,6 @@ public class Main extends javax.swing.JFrame {
         table.getColumnModel().getColumn(0).setHeaderRenderer(new CheckBoxTableHeaderRenderer(table, 0));
         table.getTableHeader().setDefaultRenderer(new TableHeaderAlignment(table));
 
-        // init default modal
         ModalDialog.getDefaultOption()
                 .setOpacity(0.3f)
                 .getLayoutOption().setAnimateScale(0.1f);
